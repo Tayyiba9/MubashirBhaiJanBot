@@ -17,3 +17,14 @@ async def video_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Video mil gayi ✅ Upload ke liye tayyar kar raha hoon...")
 
 app.add_handler(MessageHandler(filters.VIDEO, video_handler))
+async def video_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    video = update.message.video
+
+    await update.message.reply_text("Video receive ho gayi ✅")
+
+    file = await context.bot.get_file(video.file_id)
+
+    file_path = "video.mp4"
+    await file.download_to_drive(file_path)
+
+    await update.message.reply_text("Video download ho gayi ✅")
